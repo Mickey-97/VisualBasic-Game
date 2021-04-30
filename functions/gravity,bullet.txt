@@ -1,0 +1,180 @@
+#include <iostream.h>
+#include <stdlib.h>
+#include <afx.h>
+#include <conio.h>
+
+
+void SetBackGround_s( char x[][2400] )
+{
+	for (int r=0; r< 72; r++)
+	{
+		for (int c=0; c<2400; c++)
+		{
+			x[r][c] = ' ';
+		}
+	}
+
+	for (int c=0; c<80; c++)
+	{
+		x[0][c] = '*';
+		x[70][c] = '*';
+	}
+	for (r=0; r<24; r++)
+	{
+		x[r][0]  = '|';
+		x[r][79] = '|';
+	}
+	x[r+20][20]='=';
+
+}
+
+void Display(char x[][2400] )
+{
+	system("cls");
+	for (int r = 0; r< 72; r++)
+	{
+		for (int c=0; c<150; c++)
+		{
+			cout<<x[r][c];
+		}
+	}
+
+	cout.flush();
+}
+
+void SetEnmy_in_Mat(char x[][2400] , int RE, int CE)
+{
+	x[RE]  [CE]		=	'@';//'@';
+	x[RE+1][CE]		=	'|';
+	x[RE+2][CE]		=	'|';
+}
+
+void AnimateEnmy(int &RE, int &CE, int & dir)
+{
+	if ( dir == 1)
+	{
+		if (CE < 78)
+			CE++;
+		else
+			dir = -1;
+	}
+	else
+	{
+		if (CE > 0)
+			CE--;
+		else
+			dir = 1;
+	}
+}
+
+void SetHero_in_Mat(char x[][2400] , int RH, int CH)
+{
+	x[RH]  [CH]		=	'@';
+	x[RH+1][CH]		=	'|';
+	x[RH+1][CH-1]	=	'-';
+	x[RH+1][CH+1]	=	'-';
+	x[RH+2][CH]		=	'|';
+	x[RH+2][CH-1]	=	'-';
+	x[RH+2][CH+1]	=	'-';
+}
+
+void AnimateHero(int &RH, int &CH , char k)
+{
+	if (k == 's')
+		RH++;
+	if (k == 'w')
+		RH-=4;
+	if (k == 'a')
+		CH--;
+	if (k == 'd')
+		CH++;
+}
+void generate_bullet(char x[][2400],int posr[],int posc[],int count)
+{
+	for(int i=0;i<=count;i++)
+	{	if(posr[i]!=-1)
+		{
+			x[posr[i]][posc[i]]='-';
+			
+			posc[i]++;
+		}
+		if(posc[i]+1==2400)
+		{
+			
+			x[posr[i]][posc[i]]=' ';
+			posr[i]=-1;
+			posc[i]=-1;
+		}
+	}
+	
+}
+void gravity (char x[][2400],int &RH,int CH,int size)
+{
+	
+	if (x[RH+size][CH]==' ')
+		{RH++;}
+		
+	
+}
+
+void main()
+{
+	char x[72][2400];
+	int posr[100];
+	int posc[100];
+
+	int RE = 10;	//pos
+	int CE = 20;	//pos
+
+	int RH = 15;	//pos
+	int CH = 20;	//pos
+
+
+	int dir = 1;
+	char k;
+	int count=0;
+	int i;
+	for (i=0;i<100;i++)
+	{
+		posr[i]=-1;
+		posc[i]=-1;
+	}
+	
+
+	for ( ; ; )
+	{
+		for ( ; !kbhit() ; )
+		{
+			SetBackGround_s( x );
+		
+			AnimateEnmy(RE, CE , dir);
+			gravity (x,RE,CE,3);
+			SetEnmy_in_Mat( x , RE , CE);
+            gravity (x,RH,CH,3);
+			SetHero_in_Mat(x, RH, CH);
+			
+			generate_bullet(x,posr,posc,count);
+			
+			Display(x);
+		}
+		
+		
+		k = getch();
+		if (k=='f')
+		{
+		
+			posr[count]=RH+1;
+			posc[count]=CH+1;
+			count++;
+		}
+		SetBackGround_s( x );
+		AnimateEnmy(RE, CE , dir);
+		SetEnmy_in_Mat( x , RE , CE);
+
+		AnimateHero(RH, CH , k);
+		SetHero_in_Mat(x, RH, CH);
+		generate_bullet(x,posr,posc,count);
+
+		Display(x );
+	}
+}

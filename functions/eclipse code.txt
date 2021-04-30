@@ -1,0 +1,21 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+public class Main {
+	public static void main(String[] args) {
+      Scanner input = new Scanner(System.in);
+      for(int z = 0;;z++)
+      {   String x = input.nextLine();
+    	  if(x.contains("close")){break;}
+    	  char c [] = new char [x.length()];
+    	  c=x.toCharArray();
+    	  for(int i = 0 ; i<x.length() ; i++)
+    	  {   System.out.print("x[re+"+z+"]"+"[ce+"+i+"]="+(int)c[i]+";");}
+       	 System.out.println();
+      }
+    
+        	
+        	
+        }
+	
+
+}

@@ -1,0 +1,8 @@
+﻿Build started 18-Nov-16 9:08:57 PM.
+     1>Project "D:\STUDY\2nd semster\PROGRRAMING\Games\Game 2\GAME 2.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(369,5): error MSB8031: Building an MFC project for a non-Unicode character set is deprecated. You must change the project property to Unicode or download an additional library. See http://go.microsoft.com/fwlink/p/?LinkId=286820 for more information.
+     1>Done Building Project "D:\STUDY\2nd semster\PROGRRAMING\Games\Game 2\GAME 2.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:01.01
